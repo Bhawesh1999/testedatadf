@@ -1,0 +1,9 @@
+{
+	"name": "rhebahteste",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "8d86adc6-6476-432f-8f9a-a2b5eecdd1b3",
+		"tenantId": "5eefdf6e-f84f-431c-926d-85fad6925b0d"
+	}
+}

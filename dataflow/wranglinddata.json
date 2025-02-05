@@ -1,0 +1,20 @@
+{
+	"name": "wranglinddata",
+	"properties": {
+		"type": "WranglingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "input",
+					"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> input",
+					"dataset": {
+						"referenceName": "input",
+						"type": "DatasetReference"
+					}
+				}
+			],
+			"script": "section Section1;\r\nshared input = let AdfDoc = AzureStorage.BlobContents(\"https://teststorageaccounr.blob.core.windows.net/trstcontainteredfd/InputFolder/Employeesdata.csv\"),Csv = Csv.Document(AdfDoc, [Delimiter = \",\", Encoding = TextEncoding.Utf8, QuoteStyle = QuoteStyle.Csv]), PromotedHeaders = Table.PromoteHeaders(Csv, [PromoteAllScalars = true]),\r\n  #\"Removed columns\" = Table.RemoveColumns(PromotedHeaders, {\"salary\"}) in  #\"Removed columns\";\r\nshared UserQuery = let Source = #\"input\",\r\n  #\"Removed columns\" = Table.RemoveColumns(Source, {\"country\"}) in #\"Removed columns\";\r\n",
+			"documentLocale": "en-us"
+		}
+	}
+}
